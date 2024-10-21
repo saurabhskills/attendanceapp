@@ -1,0 +1,34 @@
+<h1>Mark Attendance</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="class">Select Class:</label>
+    <select name="class_id" id="class">
+        {% for class in classes %}
+        <option value="{{ class.id }}">{{ class.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="date">Select Date:</label>
+    <input type="date" name="date">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Present</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.first_name }} {{ student.last_name }}</td>
+                <td>
+                    <input type="checkbox" name="student_{{ student.id }}" value="on">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <button type="submit">Submit Attendance</button>
+</form>
